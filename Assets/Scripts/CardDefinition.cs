@@ -2,12 +2,13 @@
 using System.Linq;
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Cards/New Card", fileName = "CardDefinition")]
 public class CardDefinition : ScriptableObject
 {
-    public int Cost { get; }
-    public int EnvironmentalImpact { get; }
-    public int EconomicImpact { get; }
-    public List<CardEffect> Effects { get; }
+    public int Cost;
+    public int EnvironmentalImpact;
+    public int EconomicImpact;
+    public List<CardEffect> Effects;
 
     public CardDefinition(int cost, int environmentalImpact, int economicImpact, IEnumerable<CardEffect> effects)
     {
