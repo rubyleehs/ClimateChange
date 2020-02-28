@@ -7,11 +7,16 @@ public class Board : MonoBehaviour
     public GameObject defaultTileGO;
     public Vector2Int mapResolution;
     public Vector2 tileSize;
-    public Vector2 origin;
+    public Vector3 origin;
 
     private Tile[,] map;
 
-    public void InitNewBoard(int xResolution, int yResolution)
+    private void Awake()
+    {
+        InitNewBoard();
+    }
+
+    public void InitNewBoard()
     {
         CleanUpMap();
         CreateMap(mapResolution, defaultTileGO, tileSize, origin);
@@ -30,7 +35,7 @@ public class Board : MonoBehaviour
         {
             for (int x = 0; x < map.GetLength(0); x++)
             {
-                map[x,y] = Instantiate(tileGO, origin + new Vector3(x * tileSize.x, y * tileSize.y), Quaternion.identity, this.transform).GetComponent<Tile>();
+                map[x,y] = Instantiate(tileGO, origin + new Vector3(x * tileSize.x, 0 , y * tileSize.y), Quaternion.identity, this.transform).GetComponent<Tile>();
                 map[x, y].InitBoardTile(new Vector2Int(x, y));
 
                 if (x > 0) map[x, y].AddNeighbour(map[x - 1, y], Direction.W);
