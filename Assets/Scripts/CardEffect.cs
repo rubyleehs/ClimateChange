@@ -1,7 +1,9 @@
-public abstract class CardEffect
+using UnityEngine;
+
+public abstract class CardEffect : ScriptableObject
 {
-    public abstract void OnPlay(Tile tile);
-    public abstract void OnTurnStart();
-    public abstract void OnTurnEnd();
-    public abstract void OnDestroy();
+    public virtual void OnPlay(Tile tile) { }
+    public virtual void OnTurnStart() { }
+    public virtual void OnTurnEnd() { }
+    public virtual void OnDestruction() { }
 }

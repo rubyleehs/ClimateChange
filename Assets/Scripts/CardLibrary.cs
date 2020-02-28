@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
-public class CardLibrary
+public class CardLibrary : ScriptableObject
 {
     private List<CardDefinition> Cards { get; }
 

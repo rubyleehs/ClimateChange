@@ -1,4 +1,6 @@
-﻿public class Card
+﻿using UnityEngine;
+
+public class Card : ScriptableObject
 {
     public CardDefinition Type { get; }
 
