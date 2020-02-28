@@ -233,11 +233,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de9783f2193dce143a1795d84b43bc9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultTileGO: {fileID: 8849117161514019555, guid: a921e209fa9341242a715c8168a9ec91,
-    type: 3}
+  tileGO: {fileID: 1000180753823010166, guid: 4078be2e205521a4a9d82deedf13cc9e, type: 3}
+  I_defaultCardDefination: {fileID: 11400000, guid: 64b96c56fb30aa54faa9fd8eb0de4b8f,
+    type: 2}
   mapResolution: {x: 10, y: 10}
   tileSize: {x: 10, y: 10}
-  origin: {x: 0, y: 0}
+  origin: {x: 0, y: 0, z: 0}
 --- !u!4 &1541465202
 Transform:
   m_ObjectHideFlags: 0
