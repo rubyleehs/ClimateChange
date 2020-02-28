@@ -5,11 +5,12 @@ using UnityEngine;
 public class Board : MonoBehaviour
 {
     public GameObject defaultTileGO;
+    public Vector2Int mapResolution;
+    public Vector2 tileSize;
+    public Vector2 origin;
 
     private BoardTile[,] map;
-    private Vector2Int mapResolution;
-    private Vector2 tileSize;
-    private Vector2 origin;
+    
 
     public void InitNewBoard(int xResolution, int yResolution)
     {
@@ -20,9 +21,11 @@ public class Board : MonoBehaviour
 
     public void CreateMap(Vector2Int mapResolution, GameObject tileGO, Vector2 tileSize , Vector3 origin)
     {
+        /*
         this.mapResolution = mapResolution;
         this.tileSize = tileSize;
         this.origin = origin;
+        */
 
         map = new BoardTile[mapResolution.x, mapResolution.y];
         for (int y = 0; y < map.GetLength(1); y++)
