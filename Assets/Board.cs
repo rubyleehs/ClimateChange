@@ -15,8 +15,7 @@ public class Board : MonoBehaviour
     public void InitNewBoard(int xResolution, int yResolution)
     {
         CleanUpMap();
-        
-        mapResolution = new Vector2Int(xResolution, yResolution);
+        CreateMap(mapResolution, defaultTileGO, tileSize, origin);
     }
 
     public void CreateMap(Vector2Int mapResolution, GameObject tileGO, Vector2 tileSize , Vector3 origin)
