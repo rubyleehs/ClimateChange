@@ -81,6 +81,16 @@ public class Tile : MonoBehaviour, IClickable
 
     void IClickable.OnClick()
     {
-        //Debug.Log(_indexPosition);
+
+    }
+
+    void IClickable.OnClickUp()
+    {
+        //throw new NotImplementedException();
+    }
+
+    void IClickable.OnClickDown()
+    {
+        //throw new NotImplementedException();
     }
 }

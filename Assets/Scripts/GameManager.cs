@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,7 +15,8 @@ public class GameManager : MonoBehaviour
 
     private CardLibrary _cardLibrary;
 
-    public static float money, economy, enviromentalImpact;
+    public static int money, economy, environmentImpact;
+    public TextMeshProUGUI moneyTextMesh, economyTextMesh, environmentInpactTextMesh;
 
     void Awake()
     {
@@ -30,5 +32,28 @@ public class GameManager : MonoBehaviour
         _hand = _handObject.AddComponent<Hand>();
         _hand.Init();
         foreach (var cardType in _cardLibrary.Cards) _hand.GiveFrom(cardType);
+
+        SetMoney(100);
+        SetEconomy(101);
+        SetEnvironmentImpact(102);
+    }
+
+    public void SetMoney(int value)
+    {
+        money = value;
+        moneyTextMesh.text = "" + value;
+
+    }
+
+    public void SetEconomy(int value)
+    {
+        economy = value;
+        economyTextMesh.text = "" + value;
+    }
+
+    public void SetEnvironmentImpact(int value)
+    {
+        environmentImpact = value;
+        environmentInpactTextMesh.text = "" + value;
     }
 }
