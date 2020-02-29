@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 public class Game : MonoBehaviour
 {
@@ -24,6 +25,9 @@ public class Game : MonoBehaviour
 
         _handObject = new GameObject("Hand");
         _handObject.transform.SetParent(_root.transform);
+        _hand = _handObject.AddComponent<Hand>();
+        _hand.Init();
+        foreach (var cardType in _cardLibrary.Cards) _hand.GiveFrom(cardType);
     }
 
     void Update()

@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class CardLibrary
 {
-    private List<CardDefinition> Cards { get; }
+    private List<CardDefinition> _cards { get; }
+	public IReadOnlyCollection<CardDefinition> Cards => _cards.AsReadOnly();
 
 	public CardLibrary(string path)
 	{
-		Cards = Resources.LoadAll<CardDefinition>(path).ToList();
+		_cards = Resources.LoadAll<CardDefinition>(path).ToList();
 	}
 
 	public void AddCard(CardDefinition cardDefinition)
-		=> Cards.Add(cardDefinition);
+		=> _cards.Add(cardDefinition);
 	public void AddCards(IEnumerable<CardDefinition> cardDefinitions)
-		=> Cards.AddRange(cardDefinitions);
+		=> _cards.AddRange(cardDefinitions);
 }

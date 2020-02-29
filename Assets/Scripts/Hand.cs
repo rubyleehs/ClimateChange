@@ -1,23 +1,35 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
-public class Hand
+public class Hand : MonoBehaviour
 {
-    private List<Card> _cards { get; }
+    private List<Card> _cards { get; set; }
+	public IReadOnlyCollection<Card> Cards => _cards.AsReadOnly();
 
-	public IReadOnlyCollection<Card> Cards
-	{
-		get => _cards.AsReadOnly();
-	}
-
-	public Hand() : this(new List<Card>()) { }
-	public Hand(IEnumerable<Card> cards)
+	public void Init() => Init(new List<Card>());
+	public void Init(IEnumerable<Card> cards)
 	{
 		_cards = cards as List<Card> ?? cards.ToList();
 	}
 
 	public void Give(Card card)
-		=> _cards.Add(card);
+	{
+		card.transform.SetParent(this.transform);
+		_cards.Add(card);
+	}
+	public void Give(IEnumerable<Card> cards)
+	{
+		foreach (var card in cards)
+			Give(card);
+	}
+	public void GiveFrom(CardDefinition cardType)
+	{
+		var card = new GameObject("Card").AddComponent<Card>();
+		card.Init(cardType);
+		Give(card);
+	}
+
 	public Card Play(Card card)
 	{
 		_cards.Remove(card);
