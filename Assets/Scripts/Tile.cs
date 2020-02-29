@@ -6,7 +6,7 @@ using TMPro;
 
 public enum Direction { N = 0, NE = 1, E = 2, SE = 3, S = 4, SW = 5, W = 6, NW = 7 };
 
-public class Tile : MonoBehaviour, IClickable
+public class Tile : MonoBehaviour
 {
     public Transform ModelParent;
 
@@ -50,7 +50,7 @@ public class Tile : MonoBehaviour, IClickable
         tile._neighbours[((int)direction + 4) % 8] = this;
     }
 
-    private void UpdateGroundModel(GameObject ground)
+    public void UpdateGroundModel(GameObject ground)
     {
         if (ground == null)
             throw new ArgumentException("A valid ground model has to be passed in.");
@@ -77,20 +77,5 @@ public class Tile : MonoBehaviour, IClickable
             yield return new WaitForEndOfFrame();
         }
         textRotaterRoutine = null;
-    }
-
-    void IClickable.OnClick()
-    {
-
-    }
-
-    void IClickable.OnClickUp()
-    {
-        //throw new NotImplementedException();
-    }
-
-    void IClickable.OnClickDown()
-    {
-        //throw new NotImplementedException();
     }
 }

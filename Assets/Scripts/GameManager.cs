@@ -30,8 +30,15 @@ public class GameManager : MonoBehaviour
         _handObject = new GameObject("Hand");
         _handObject.transform.SetParent(_root.transform);
         _hand = _handObject.AddComponent<Hand>();
-        _hand.Init();
-        foreach (var cardType in _cardLibrary.Cards) _hand.GiveFrom(cardType);
+        _hand.Init(Camera.main);
+        _hand.transform.SetPositionAndRotation(new Vector3(0, 17.5f, 0), Quaternion.Euler(45, 45, 0));
+        _hand.transform.localScale = new Vector2(2.5f, 2.5f);
+        foreach (var cardType in _cardLibrary.Cards)
+        {
+            var card = _hand.GiveFrom(cardType);
+            card.transform.localPosition = Vector3.zero;
+            card.transform.localRotation = Quaternion.identity;
+        }
 
         SetMoney(100);
         SetEconomy(101);
@@ -42,7 +49,6 @@ public class GameManager : MonoBehaviour
     {
         money = value;
         moneyTextMesh.text = "" + value;
-
     }
 
     public void SetEconomy(int value)

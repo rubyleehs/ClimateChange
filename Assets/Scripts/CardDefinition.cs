@@ -12,6 +12,8 @@ public class CardDefinition : ScriptableObject
     public int EnvironmentalImpact;
     public int EconomicImpact;
 
+    public GameObject GroundModel;
+    public GameObject PlacedModel;
     public List<String> EffectNames;
 
     private List<CardEffect> _effects;
