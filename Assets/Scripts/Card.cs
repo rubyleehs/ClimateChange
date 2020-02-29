@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(SpriteRenderer))]
@@ -45,7 +46,7 @@ public class Card : MonoBehaviour, IClickable
 		Hand = _handOnDragStart;
 	}
 
-	void IClickable.OnClick()
+	void IClickable.OnClickDown()
 	{
 		Debug.Log($"Dragging {Type}");
 
@@ -56,9 +57,17 @@ public class Card : MonoBehaviour, IClickable
 
 		if (IsInHand) Play();
 
-		transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		StartCoroutine(OnDrag());
 	}
-	void IClickable.OnClickDown() { }
+	void IClickable.OnClick() { }
+	IEnumerator OnDrag()
+	{
+		while (!Input.GetMouseButtonUp(0))
+		{
+			transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			yield return null;
+		}
+	}
 	void IClickable.OnClickUp()
 	{
 		Debug.Log($"Mouse up");
