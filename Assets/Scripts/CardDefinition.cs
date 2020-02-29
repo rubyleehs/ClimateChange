@@ -10,7 +10,8 @@ public class CardDefinition : ScriptableObject
     public int EconomicImpact;
     public List<CardEffect> Effects;
 
-    public GameObject tileModel;
+    public GameObject groundModel;
+    public GameObject aboveGroundModel;
 
     public CardDefinition(int cost, int environmentalImpact, int economicImpact, IEnumerable<CardEffect> effects)
     {
