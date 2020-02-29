@@ -17,6 +17,10 @@ public class Board : MonoBehaviour
 
     private Tile[,] map;
 
+    public Camera Camera;
+
+    public CardDefinition CardDefinition;
+
     private void Awake()
     {
         InitNewBoard();
@@ -25,7 +29,15 @@ public class Board : MonoBehaviour
     public void InitNewBoard()
     {
         CleanUpMap();
-        CreateMap(mapResolution, tileGO, I_defaultCardDefination, tileSize, origin);
+        CreateMap(mapResolution, defaultTileGO, tileSize, origin);
+
+        Camera.transform.SetPositionAndRotation(new Vector3(-10, 88f, -10), Quaternion.Euler(45, 45, 0));
+
+        var card = new GameObject("Card");
+        var component = card.AddComponent<Card>();
+        component.Init(CardDefinition);
+        card.transform.position = new Vector3(5, 20, 5);
+        card.transform.localScale = new Vector3(25, 25, 25);
     }
 
     public void CreateMap(Vector2Int mapResolution, GameObject tileGO, CardDefinition defaultCardDefination, Vector2 tileSize , Vector3 origin)
