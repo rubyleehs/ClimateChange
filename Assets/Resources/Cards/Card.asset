@@ -12,13 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 017ca8dd7d06a1a41a0a0e9fd010bb36, type: 3}
   m_Name: Card
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 7024648501981196136, guid: 77830b4bda968874d94061d138e4a8b3, type: 3}
   Cost: 5
   EnvironmentalImpact: 2
   EconomicImpact: -3
-  groundModel: {fileID: -927199367670048503, guid: 86f6bdd830614934597ec9063f4b116c,
-    type: 3}
-  aboveGroundModel: {fileID: 0}
   EffectNames:
   - ExampleCardEffect
   - ExampleCardEffect
