@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6946ca27a19f2646acda5a9cb2b837f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modelsParent: {fileID: 4628043359064210942}
+  ModelParent: {fileID: 4628043359064210942}
 --- !u!65 &9015153937346951345
 BoxCollider:
   m_ObjectHideFlags: 0
