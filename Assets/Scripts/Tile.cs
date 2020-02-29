@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -14,6 +15,11 @@ public class Tile : MonoBehaviour
 
     private Transform _groundModel;
     private TextMeshProUGUI _textMesh;
+
+    private Quaternion textStartRot;
+    private IEnumerator textRotaterRoutine;
+
+
 
     private int _landValue;
     public int LandValue
@@ -32,6 +38,7 @@ public class Tile : MonoBehaviour
         _indexPosition = indexPosition;
         _neighbours = new Tile[8];
         _textMesh = GetComponentInChildren<TextMeshProUGUI>();
+        textStartRot = _textMesh.transform.rotation;
 
         UpdateGroundModel(groundPrefab);
     }
@@ -51,4 +58,25 @@ public class Tile : MonoBehaviour
         if (_groundModel != null) Destroy(_groundModel.gameObject);
         _groundModel = Instantiate(ground, ModelParent.position, Quaternion.identity, ModelParent).transform;
     }
+
+    public void RotateTextToFaceCamera(float rotationSpeed)
+    {
+        if (textRotaterRoutine != null)
+            StopCoroutine(textRotaterRoutine);
+
+        textRotaterRoutine = RotateTextToFaceCameraRoutine(rotationSpeed);
+        StartCoroutine(textRotaterRoutine);
+    }
+
+    private IEnumerator RotateTextToFaceCameraRoutine(float rotationSpeed)
+    {
+        Quaternion targetRot = textStartRot * Quaternion.Euler(Vector3.forward * -45 * (int)MainCameraControl.camFaceDirection);
+        while (_textMesh.transform.rotation != targetRot)
+        {
+            _textMesh.transform.rotation = Quaternion.RotateTowards(_textMesh.transform.rotation, targetRot, rotationSpeed * Time.deltaTime * 1.4f);
+            yield return new WaitForEndOfFrame();
+        }
+        textRotaterRoutine = null;
+    }
+    
 }

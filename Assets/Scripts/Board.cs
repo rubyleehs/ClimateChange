@@ -13,7 +13,7 @@ public class Board : MonoBehaviour
     public Vector3 Origin;
     public Vector2 TileSize;
 
-    private Tile[,] map;
+    public static Tile[,] map;
 
     private void Awake()
     {
@@ -56,6 +56,17 @@ public class Board : MonoBehaviour
             for (int x = 0; x < map.GetLength(0); x++)
             {
                 if(map[x,y] != null) Destroy(map[x, y]);
+            }
+        }
+    }
+
+    public static void UpdateAllTextRotation(float textRotationSpeed)
+    {
+        for (int y = 0; y < map.GetLength(1); y++)
+        {
+            for (int x = 0; x < map.GetLength(0); x++)
+            {
+                map[x, y].RotateTextToFaceCamera(textRotationSpeed);
             }
         }
     }
