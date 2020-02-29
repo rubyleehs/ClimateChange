@@ -1,11 +1,20 @@
 ﻿using UnityEngine;
 
-public class Card : ScriptableObject
+[RequireComponent(typeof(SpriteRenderer))]
+public class Card : MonoBehaviour
 {
-    public CardDefinition Type { get; }
+	public CardDefinition Type;
 
-	internal Card(CardDefinition type)
+	private SpriteRenderer _spriteRenderer;
+
+	public void Init(CardDefinition type)
 	{
 		Type = type;
+	}
+
+	private void Start()
+	{
+		_spriteRenderer = GetComponent<SpriteRenderer>();
+		_spriteRenderer.sprite = Type.Sprite;
 	}
 }

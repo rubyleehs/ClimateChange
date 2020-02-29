@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class CardEffect : ScriptableObject
+public abstract class CardEffect
 {
     public virtual void OnPlay(Tile tile) { }
     public virtual void OnTurnStart() { }
