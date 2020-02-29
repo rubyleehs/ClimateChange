@@ -9,8 +9,13 @@ public class CameraControl : MonoBehaviour
     public float camMoveSpeed;
     public float camRotateSpeed;
 
+    private Quaternion startRot;
     private Quaternion targetRot;
-    
+
+    private void Awake()
+    {
+        startRot = camRig.rotation;
+    }
     private void Update()
     {
         MoveCameraRig(new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")));
@@ -28,16 +33,17 @@ public class CameraControl : MonoBehaviour
     public void SmoothRotateCameraRig(Quaternion targetRot)
     {
         camRig.rotation = Quaternion.RotateTowards(camRig.rotation, targetRot, camRotateSpeed * Time.deltaTime);
+        if (camRig.rotation == targetRot) startRot = targetRot;
     }
 
     public void RotateCamRigRight()
     {
-        targetRot = camRig.rotation * Quaternion.Euler(Vector3.up * 90);
+        targetRot = startRot * Quaternion.Euler(Vector3.up * 90);
     }
 
     public void RotateCamRigLeft()
     {
-        targetRot = camRig.rotation * Quaternion.Euler(Vector3.up * -90);
+        targetRot = startRot * Quaternion.Euler(Vector3.up * -90);
     }
 
 
