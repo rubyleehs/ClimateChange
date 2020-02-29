@@ -4,54 +4,37 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
-    public GameObject tileGO;
-    public CardDefinition I_defaultCardDefination;
+    public GameObject TilePrefab;
+    public GameObject DefaultGroundPrefab;
 
-    public Transform tileParent;
+    public Transform TileParent;
 
-    public Vector2Int mapResolution;
-    public Vector2 tileSize;
-    public Vector3 origin;
-
-    public static CardDefinition defaultCardDefination;
+    public Vector2Int MapResolution;
+    public Vector3 Origin;
+    public Vector2 TileSize;
 
     private Tile[,] map;
+
     private void Awake()
     {
-        InitNewBoard();
+        Init();
     }
 
-    public void InitNewBoard()
+    public void Init()
     { 
         CleanUpMap();
-        CreateMap(mapResolution, tileGO, I_defaultCardDefination, tileSize, origin);
-
-        //Camera.transform.SetPositionAndRotation(new Vector3(-10, 88f, -10), Quaternion.Euler(45, 45, 0));
-
-        var card = new GameObject("Card");
-        var component = card.AddComponent<Card>();
-        component.Init(defaultCardDefination);
-        card.transform.position = new Vector3(5, 20, 5);
-        card.transform.localScale = new Vector3(25, 25, 25);
+        CreateMap(MapResolution, Origin, groundPrefab: DefaultGroundPrefab, TileSize);
     }
 
-    public void CreateMap(Vector2Int mapResolution, GameObject tileGO, CardDefinition defaultCardDefination, Vector2 tileSize , Vector3 origin)
+    public void CreateMap(Vector2Int mapResolution, Vector3 origin, GameObject groundPrefab, Vector2 tileSize)
     {
-        /*
-        this.mapResolution = mapResolution;
-        this.tileSize = tileSize;
-        this.origin = origin;
-        */
-
-        Board.defaultCardDefination = defaultCardDefination;
-        //Debug.Log(Board.defaultCardDefination);
         map = new Tile[mapResolution.x, mapResolution.y];
         for (int y = 0; y < map.GetLength(1); y++)
         {
             for (int x = 0; x < map.GetLength(0); x++)
             {
-                map[x,y] = Instantiate(tileGO, origin + new Vector3(x * tileSize.x, 0 , y * tileSize.y), Quaternion.identity, tileParent).GetComponent<Tile>();
-                map[x, y].InitBoardTile(new Vector2Int(x, y));
+                map[x, y] = Instantiate(TilePrefab, origin + new Vector3(x * tileSize.x, 0, y * tileSize.y), Quaternion.identity, TileParent).GetComponent<Tile>();
+                map[x, y].Init(new Vector2Int(x, y), groundPrefab);
 
                 if (x > 0) map[x, y].AddNeighbour(map[x - 1, y], Direction.W);
                 if (y > 0)
@@ -76,10 +59,4 @@ public class Board : MonoBehaviour
             }
         }
     }
-
-    public Vector2Int GetMapResolution()
-    {
-        return mapResolution;
-    }
-
 }

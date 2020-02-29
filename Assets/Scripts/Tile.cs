@@ -1,77 +1,54 @@
-﻿using UnityEngine;
-using TMPro;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
 
-public enum Direction { N = 0, NE = 1, E = 2, SE = 3, S = 4, SW = 5, W = 6, NW = 7}
+public enum Direction { N = 0, NE = 1, E = 2, SE = 3, S = 4, SW = 5, W = 6, NW = 7 };
 
 public class Tile : MonoBehaviour
 {
-    public Tile[] neighbours;
-    public Transform modelsParent;
+    public Transform ModelParent;
 
-    private Vector2Int indexPosition;
-    private Transform groundModel;
-    private Transform aboveGroundModel;
-    private TextMeshProUGUI textMesh;
+    private Vector2Int _indexPosition;
+    private Tile[] _neighbours;
 
-    private int landValue;
+    private Transform _groundModel;
+    private TextMeshProUGUI _textMesh;
 
-    public void InitBoardTile(Vector2Int indexPosition, CardDefinition cardDefinition = null)
+    private int _landValue;
+    public int LandValue
     {
-        this.indexPosition = indexPosition;
-        neighbours = new Tile[8];
-        textMesh = this.GetComponentInChildren<TextMeshProUGUI>();
+        get => _landValue;
+        set
+        {
+            _landValue = value;
+            _textMesh.text = "";
+            if (value != 0) _textMesh.text += value;
+        }
+    }
 
-        PlaceCard(cardDefinition);
+    public void Init(Vector2Int indexPosition, GameObject groundPrefab)
+    {
+        _indexPosition = indexPosition;
+        _neighbours = new Tile[8];
+        _textMesh = GetComponentInChildren<TextMeshProUGUI>();
+
+        UpdateGroundModel(groundPrefab);
     }
 
     public void AddNeighbour(Tile tile, Direction direction)
     {
         if (tile == null) return;
-        neighbours[(int)direction] = tile;
-        tile.neighbours[((int)direction + 4) % 8] = this;
+        _neighbours[(int)direction] = tile;
+        tile._neighbours[((int)direction + 4) % 8] = this;
     }
 
-    public void PlaceCard(CardDefinition card)
+    private void UpdateGroundModel(GameObject ground)
     {
-        UpdateModels(card);
-    }
+        if (ground == null)
+            throw new ArgumentException("A valid ground model has to be passed in.");
 
-    public void UpdateModels(CardDefinition card)
-    {
-        UpdateGroundModel(card);
-        UpdateAboveGroundModel(card);
-    }
-
-    private void UpdateGroundModel(CardDefinition card)
-    {
-        if (groundModel != null) Destroy(groundModel.gameObject);
-        if (card == null || card.groundModel == null) groundModel = Instantiate(Board.defaultCardDefination.groundModel, modelsParent.position, Quaternion.identity, modelsParent).transform;
-        else groundModel = Instantiate(card.groundModel, modelsParent.position, Quaternion.identity, modelsParent).transform;
-    }
-
-    private void UpdateAboveGroundModel(CardDefinition card)
-    {
-        if (aboveGroundModel != null) Destroy(aboveGroundModel.gameObject);
-        if (card == null || card.aboveGroundModel == null) return;
-        else aboveGroundModel = Instantiate(card.aboveGroundModel, modelsParent.position, Quaternion.identity, modelsParent).transform;
-    }
-
-    public void SetLandValue(int value)
-    {
-        landValue = value;
-        textMesh.text = "";
-        if (value != 0)  textMesh.text += value;
-    }
-
-    public int GetLandValue()
-    {
-        return landValue;
-    }
-
-    public void OnClick()
-    {
-
+        if (_groundModel != null) Destroy(_groundModel.gameObject);
+        _groundModel = Instantiate(ground, ModelParent.position, Quaternion.identity, ModelParent).transform;
     }
 }

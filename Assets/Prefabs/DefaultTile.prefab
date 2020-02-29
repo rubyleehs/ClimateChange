@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4628043359064210942}
   m_Layer: 0
-  m_Name: GroundModel
+  m_Name: ModelParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,15 +76,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6946ca27a19f2646acda5a9cb2b837f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  neighbours:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   modelsParent: {fileID: 4628043359064210942}
 --- !u!65 &9015153937346951345
 BoxCollider:
