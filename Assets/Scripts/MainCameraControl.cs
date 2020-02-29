@@ -25,7 +25,8 @@ public class MainCameraControl : MonoBehaviour
         
 
 
-        //if(Input.GetButtonDown("Fire1")) RotateCamRigRight();
+        if (Input.GetKeyDown(KeyCode.E)) RotateCamRigRight();
+        if (Input.GetKeyDown(KeyCode.Q)) RotateCamRigLeft();
     }
 
     public void MoveCameraRig(Vector2 delta)
