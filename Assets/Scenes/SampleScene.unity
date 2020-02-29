@@ -426,8 +426,8 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 60
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -453,7 +453,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1541465202}
   - component: {fileID: 1541465201}
-  - component: {fileID: 1541465203}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -474,13 +473,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileGO: {fileID: 5874911620244634613, guid: 1dac58d5a71815f40a5a8c65cdfa188c, type: 3}
-  I_defaultCardDefination: {fileID: 11400000, guid: 64b96c56fb30aa54faa9fd8eb0de4b8f,
+  I_defaultCardDefination: {fileID: 11400000, guid: bf68bfe7445dbc941bf0e2967f90e083,
     type: 2}
   tileParent: {fileID: 1184983618}
   mapResolution: {x: 10, y: 10}
   tileSize: {x: 10, y: 10}
   origin: {x: 0, y: 0, z: 0}
-  Camera: {fileID: 519420031}
 --- !u!4 &1541465202
 Transform:
   m_ObjectHideFlags: 0
@@ -496,19 +494,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1541465203
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1541465200}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d7aa7139fa74a9468c4ec04b61b0b21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Card: {fileID: 11400000, guid: bf68bfe7445dbc941bf0e2967f90e083, type: 2}
 --- !u!1 &2073940153
 GameObject:
   m_ObjectHideFlags: 0

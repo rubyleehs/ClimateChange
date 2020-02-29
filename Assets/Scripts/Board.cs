@@ -16,26 +16,21 @@ public class Board : MonoBehaviour
     public static CardDefinition defaultCardDefination;
 
     private Tile[,] map;
-
-    public Camera Camera;
-
-    public CardDefinition CardDefinition;
-
     private void Awake()
     {
         InitNewBoard();
     }
 
     public void InitNewBoard()
-    {
+    { 
         CleanUpMap();
-        CreateMap(mapResolution, defaultTileGO, tileSize, origin);
+        CreateMap(mapResolution, tileGO, I_defaultCardDefination, tileSize, origin);
 
-        Camera.transform.SetPositionAndRotation(new Vector3(-10, 88f, -10), Quaternion.Euler(45, 45, 0));
+        //Camera.transform.SetPositionAndRotation(new Vector3(-10, 88f, -10), Quaternion.Euler(45, 45, 0));
 
         var card = new GameObject("Card");
         var component = card.AddComponent<Card>();
-        component.Init(CardDefinition);
+        component.Init(defaultCardDefination);
         card.transform.position = new Vector3(5, 20, 5);
         card.transform.localScale = new Vector3(25, 25, 25);
     }
@@ -49,7 +44,7 @@ public class Board : MonoBehaviour
         */
 
         Board.defaultCardDefination = defaultCardDefination;
-
+        //Debug.Log(Board.defaultCardDefination);
         map = new Tile[mapResolution.x, mapResolution.y];
         for (int y = 0; y < map.GetLength(1); y++)
         {

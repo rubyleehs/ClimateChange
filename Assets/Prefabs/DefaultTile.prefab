@@ -40,6 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2356142284284878357}
   - component: {fileID: 6698230421233530198}
+  - component: {fileID: 9015153937346951345}
   m_Layer: 0
   m_Name: DefaultTile
   m_TagString: Untagged
@@ -85,8 +86,19 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   modelsParent: {fileID: 4628043359064210942}
-  textMesh: {fileID: 3846637869684320118}
-  landValue: 0
+--- !u!65 &9015153937346951345
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5874911620244634613}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 1, z: 10}
+  m_Center: {x: 5, y: 2, z: 5}
 --- !u!1 &8643081671295489620
 GameObject:
   m_ObjectHideFlags: 0

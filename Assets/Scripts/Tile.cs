@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using TMPro;
+using System;
+using System.Collections.Generic;
 
 public enum Direction { N = 0, NE = 1, E = 2, SE = 3, S = 4, SW = 5, W = 6, NW = 7}
 
@@ -10,6 +12,7 @@ public class Tile : MonoBehaviour
 
     private Vector2Int indexPosition;
     private Transform groundModel;
+    private Transform aboveGroundModel;
     private TextMeshProUGUI textMesh;
 
     private int landValue;
@@ -32,14 +35,27 @@ public class Tile : MonoBehaviour
 
     public void PlaceCard(CardDefinition card)
     {
-        UpdateGroundModel(card);
+        UpdateModels(card);
     }
 
-    public void UpdateGroundModel(CardDefinition card)
+    public void UpdateModels(CardDefinition card)
+    {
+        UpdateGroundModel(card);
+        UpdateAboveGroundModel(card);
+    }
+
+    private void UpdateGroundModel(CardDefinition card)
     {
         if (groundModel != null) Destroy(groundModel.gameObject);
         if (card == null || card.groundModel == null) groundModel = Instantiate(Board.defaultCardDefination.groundModel, modelsParent.position, Quaternion.identity, modelsParent).transform;
         else groundModel = Instantiate(card.groundModel, modelsParent.position, Quaternion.identity, modelsParent).transform;
+    }
+
+    private void UpdateAboveGroundModel(CardDefinition card)
+    {
+        if (aboveGroundModel != null) Destroy(aboveGroundModel.gameObject);
+        if (card == null || card.aboveGroundModel == null) return;
+        else aboveGroundModel = Instantiate(card.aboveGroundModel, modelsParent.position, Quaternion.identity, modelsParent).transform;
     }
 
     public void SetLandValue(int value)
@@ -52,5 +68,10 @@ public class Tile : MonoBehaviour
     public int GetLandValue()
     {
         return landValue;
+    }
+
+    public void OnClick()
+    {
+
     }
 }
