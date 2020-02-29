@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class CardLibrary : ScriptableObject
+public class CardLibrary
 {
     private List<CardDefinition> Cards { get; }
 
-	public CardLibrary()
+	public CardLibrary(string path)
 	{
-		Cards = new List<CardDefinition>();
+		Cards = Resources.LoadAll<CardDefinition>(path).ToList();
 	}
 
 	public void AddCard(CardDefinition cardDefinition)

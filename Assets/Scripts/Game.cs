@@ -11,9 +11,13 @@ public class Game : MonoBehaviour
     private Board _board;
     private Hand _hand;
 
+    private CardLibrary _cardLibrary;
+
     void Start()
     {
         _root = gameObject;
+
+        _cardLibrary = new CardLibrary("Cards");
 
         _boardObject = Instantiate(BoardPrefab, _root.transform);
         _board = _boardObject.GetComponent<Board>();
