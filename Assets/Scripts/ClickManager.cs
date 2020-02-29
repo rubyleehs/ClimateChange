@@ -15,7 +15,7 @@ public class ClickManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2)) OnClick();
+        if (Input.GetMouseButton(0) || Input.GetMouseButton(1) || Input.GetMouseButton(2)) OnClick();
     }
 
 
@@ -30,6 +30,8 @@ public class ClickManager : MonoBehaviour
             if (clickable == null) return;
 
             clickable.OnClick();
+            if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2)) clickable.OnClickDown();
+            if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1) || Input.GetMouseButtonUp(2)) clickable.OnClickUp();
         }
     }
 }
