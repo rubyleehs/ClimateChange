@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using UnityEngine;
 
-public class Game : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     public GameObject BoardPrefab;
 
@@ -14,7 +14,9 @@ public class Game : MonoBehaviour
 
     private CardLibrary _cardLibrary;
 
-    void Start()
+    public static float money, economy, enviromentalImpact;
+
+    void Awake()
     {
         _root = gameObject;
 
@@ -28,10 +30,5 @@ public class Game : MonoBehaviour
         _hand = _handObject.AddComponent<Hand>();
         _hand.Init();
         foreach (var cardType in _cardLibrary.Cards) _hand.GiveFrom(cardType);
-    }
-
-    void Update()
-    {
-
     }
 }

@@ -25,7 +25,7 @@ public class MainCameraControl : MonoBehaviour
         
 
 
-        if(Input.GetButtonDown("Fire1")) RotateCamRigRight();
+        //if(Input.GetButtonDown("Fire1")) RotateCamRigRight();
     }
 
     public void MoveCameraRig(Vector2 delta)
@@ -36,8 +36,7 @@ public class MainCameraControl : MonoBehaviour
     public void SmoothRotateCameraRigToTarget()
     {
         if (camRig.rotation == targetRot) return;
-        if (camRotateRoutine != null)
-            StartCoroutine(camRotateRoutine);
+        if (camRotateRoutine != null) return;
         camRotateRoutine = SmoothRotateCameraRigToTargetRoutine();
         StartCoroutine(camRotateRoutine);     
     }
@@ -63,6 +62,10 @@ public class MainCameraControl : MonoBehaviour
     public void RotateCamRigRight()
     {
         RotateCameraToDirection((Direction)(((int)camFaceDirection + 2) % 8));
-        
+    }
+
+    public void RotateCamRigLeft()
+    {
+        RotateCameraToDirection((Direction)(((int)camFaceDirection + 6) % 8));
     }
 }

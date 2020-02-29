@@ -6,7 +6,7 @@ using TMPro;
 
 public enum Direction { N = 0, NE = 1, E = 2, SE = 3, S = 4, SW = 5, W = 6, NW = 7 };
 
-public class Tile : MonoBehaviour
+public class Tile : MonoBehaviour, IClickable
 {
     public Transform ModelParent;
 
@@ -78,5 +78,9 @@ public class Tile : MonoBehaviour
         }
         textRotaterRoutine = null;
     }
-    
+
+    void IClickable.OnClick()
+    {
+        //Debug.Log(_indexPosition);
+    }
 }
