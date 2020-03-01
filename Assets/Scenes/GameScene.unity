@@ -390,7 +390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86e53cf2a08d81f42a6eae4d42767a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clickRaycastDistance: 100
+  clickRaycastDistance: 150
 --- !u!1 &1100365342
 GameObject:
   m_ObjectHideFlags: 0

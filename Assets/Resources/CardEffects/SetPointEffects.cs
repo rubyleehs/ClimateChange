@@ -64,19 +64,19 @@ public class EffectsSpreader
     public static void ApplyEffectSpread(Tile tile, EffectSpread spread, Action<Tile, int,int> pointApplierFunc)
     { 
         //if spread in one direction only
-        if ((int)spread.Type < 8) ApplyEffectSpreadHelper(tile._neighbours[(int)spread.Type], spread, pointApplierFunc, (Direction)spread.Type, spread.Radius - 1);
+        if ((int)spread.Type < 8) ApplyEffectSpreadHelper(tile._neighbours[(int)spread.Type], spread, pointApplierFunc, (Direction)spread.Type, spread.Radius);
         else
         {
             if (spread.Type == EffectSpreadType.Horizontal || spread.Type == EffectSpreadType.Cardinal)
             {
-                ApplyEffectSpreadHelper(tile._neighbours[(int)Direction.E], spread, pointApplierFunc, Direction.E, spread.Radius - 1);
-                ApplyEffectSpreadHelper(tile._neighbours[(int)Direction.W], spread, pointApplierFunc, Direction.W, spread.Radius - 1);
+                ApplyEffectSpreadHelper(tile._neighbours[(int)Direction.E], spread, pointApplierFunc, Direction.E, spread.Radius);
+                ApplyEffectSpreadHelper(tile._neighbours[(int)Direction.W], spread, pointApplierFunc, Direction.W, spread.Radius);
             }
 
             if (spread.Type == EffectSpreadType.Vertical || spread.Type == EffectSpreadType.Cardinal)
             {
-                ApplyEffectSpreadHelper(tile._neighbours[(int)Direction.N], spread, pointApplierFunc, Direction.N, spread.Radius - 1);
-                ApplyEffectSpreadHelper(tile._neighbours[(int)Direction.S], spread, pointApplierFunc, Direction.S, spread.Radius - 1);
+                ApplyEffectSpreadHelper(tile._neighbours[(int)Direction.N], spread, pointApplierFunc, Direction.N, spread.Radius);
+                ApplyEffectSpreadHelper(tile._neighbours[(int)Direction.S], spread, pointApplierFunc, Direction.S, spread.Radius);
             }
 
             switch (spread.Type)
@@ -85,10 +85,10 @@ public class EffectsSpreader
                     pointApplierFunc(tile, spread.EconomicImpact, spread.EnvironmentalImpact);
                     break;
                 case EffectSpreadType.Diagonal:
-                    ApplyEffectSpreadHelper(tile._neighbours[(int)Direction.NE], spread, pointApplierFunc, Direction.NE, spread.Radius - 1);
-                    ApplyEffectSpreadHelper(tile._neighbours[(int)Direction.NW], spread, pointApplierFunc, Direction.NW, spread.Radius - 1);
-                    ApplyEffectSpreadHelper(tile._neighbours[(int)Direction.SE], spread, pointApplierFunc, Direction.SE, spread.Radius - 1);
-                    ApplyEffectSpreadHelper(tile._neighbours[(int)Direction.SW], spread, pointApplierFunc, Direction.SW, spread.Radius - 1);
+                    ApplyEffectSpreadHelper(tile._neighbours[(int)Direction.NE], spread, pointApplierFunc, Direction.NE, spread.Radius);
+                    ApplyEffectSpreadHelper(tile._neighbours[(int)Direction.NW], spread, pointApplierFunc, Direction.NW, spread.Radius);
+                    ApplyEffectSpreadHelper(tile._neighbours[(int)Direction.SE], spread, pointApplierFunc, Direction.SE, spread.Radius);
+                    ApplyEffectSpreadHelper(tile._neighbours[(int)Direction.SW], spread, pointApplierFunc, Direction.SW, spread.Radius);
                     break;
                 case EffectSpreadType.All | EffectSpreadType.Donut:
                     for (int dy = -spread.Radius; dy <= spread.Radius; dy++)
@@ -116,7 +116,7 @@ public class EffectsSpreader
         Tile travel = root;
         for (int i = 0; i < maxIteration; i++)
         {
-            if (travel = null) return;
+            if (travel == null) return;
 
             applyFunc(travel);
             travel = spreadFunc(travel);

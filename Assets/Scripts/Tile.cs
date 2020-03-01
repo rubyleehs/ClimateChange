@@ -6,7 +6,7 @@ using TMPro;
 
 public enum Direction { N = 0, NE = 1, E = 2, SE = 3, S = 4, SW = 5, W = 6, NW = 7 };
 
-public class Tile : MonoBehaviour, IClickable
+public class Tile : MonoBehaviour, IClickable, IMouseOverable
 {
     public Transform ModelParent;
 
@@ -16,10 +16,14 @@ public class Tile : MonoBehaviour, IClickable
 
     private Transform _groundModel;
     private Transform _placedModel;
-    private TextMeshProUGUI _textMesh;
-
+    public TextMeshProUGUI _economyTextMesh;
+    public TextMeshProUGUI _environmentTextMesh;
+    private Transform _textRotator;
+    
     private Quaternion textStartRot;
     private IEnumerator textRotaterRoutine;
+
+    public bool isEnabled = true;
 
     private int _economicValue;
     public int EconomicValue
@@ -28,8 +32,8 @@ public class Tile : MonoBehaviour, IClickable
         set
         {
             _economicValue = value;
-            _textMesh.text = "";
-            if (value != 0) _textMesh.text += value;
+            _economyTextMesh.text = "";
+            if (value != 0 && isEnabled) _economyTextMesh.text += value;
         }
     }
 
@@ -40,8 +44,8 @@ public class Tile : MonoBehaviour, IClickable
         set
         {
             _environmentalValue = value;
-            _textMesh.text = "";
-            if (value != 0) _textMesh.text += value;
+            _environmentTextMesh.text = "";
+            if (value != 0 && isEnabled) _environmentTextMesh.text += value;
         }
     }
 
@@ -49,9 +53,9 @@ public class Tile : MonoBehaviour, IClickable
     {
         _indexPosition = indexPosition;
         _neighbours = new Tile[8];
-        _textMesh = GetComponentInChildren<TextMeshProUGUI>();
-        textStartRot = _textMesh.transform.rotation;
-
+        _textRotator = _economyTextMesh.transform.parent;
+        textStartRot = _textRotator.transform.rotation;
+        
         UpdateGroundModel(groundPrefab);
     }
 
@@ -90,9 +94,9 @@ public class Tile : MonoBehaviour, IClickable
     private IEnumerator RotateTextToFaceCameraRoutine(float rotationSpeed)
     {
         Quaternion targetRot = textStartRot * Quaternion.Euler(Vector3.forward * -45 * (int)MainCameraControl.camFaceDirection);
-        while (_textMesh.transform.rotation != targetRot)
+        while (_textRotator.transform.rotation != targetRot)
         {
-            _textMesh.transform.rotation = Quaternion.RotateTowards(_textMesh.transform.rotation, targetRot, rotationSpeed * Time.deltaTime * 1.4f);
+            _textRotator.transform.rotation = Quaternion.RotateTowards(_textRotator.transform.rotation, targetRot, rotationSpeed * Time.deltaTime * 1.4f);
             yield return new WaitForEndOfFrame();
         }
         textRotaterRoutine = null;
@@ -100,6 +104,7 @@ public class Tile : MonoBehaviour, IClickable
 
     public void OnClickUp()
     {
+        if (!isEnabled) return;
         Debug.Log($"Tile at (x: {_indexPosition.x}, y: {_indexPosition.y}) selected.");
 
         if (Card.IsAnyCardBeingDragged)
@@ -110,4 +115,20 @@ public class Tile : MonoBehaviour, IClickable
     }
     public void OnClickDown() { }
     public void OnClick() { }
+
+    void IMouseOverable.OnMouseEnter()
+    {
+        
+    }
+
+    void IMouseOverable.OnMouseOver()
+    {
+        if (!isEnabled) return;
+        Board.HighlightTile(this);
+    }
+
+    void IMouseOverable.OnMouseExit()
+    {
+        Board.HighlightTile(null);   
+    }
 }

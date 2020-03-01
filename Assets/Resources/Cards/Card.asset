@@ -14,8 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sprite: {fileID: 7024648501981196136, guid: 77830b4bda968874d94061d138e4a8b3, type: 3}
   Cost: 5
-  EnvironmentalImpact: 2
-  EconomicImpact: -3
+  effectSpread: []
+  GroundModel: {fileID: 7343213004860160786, guid: a921e209fa9341242a715c8168a9ec91,
+    type: 3}
+  PlacedModel: {fileID: -927199367670048503, guid: 7b4b39b6caa480440ac6a136ae3089a9,
+    type: 3}
   EffectNames:
-  - ExampleCardEffect
-  - ExampleCardEffect
+  - AcceptAllPoints
+  - SetPoints
