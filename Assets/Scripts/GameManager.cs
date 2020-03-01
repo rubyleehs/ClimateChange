@@ -79,9 +79,9 @@ public class GameManager : MonoBehaviour
         _handObject.transform.SetParent(Camera.main.transform);
         Hand = _handObject.AddComponent<Hand>();
         Hand.Init(Camera.main);
-        Hand.transform.localPosition = new Vector3(0, -40, 1);
+        Hand.transform.localPosition = new Vector3(0, -60, 1);
         Hand.transform.localRotation = Quaternion.identity;
-        Hand.transform.localScale = new Vector2(2.5f, 2.5f);
+        Hand.transform.localScale = new Vector2(4.5f, 4.5f);
 
         State = GameState.Start;
 

@@ -33,6 +33,8 @@ public class Tile : MonoBehaviour, IClickable, IMouseOverable
     private Transform _placedModel;
     public TextMeshProUGUI _economyTextMesh;
     public TextMeshProUGUI _environmentTextMesh;
+    public TextMeshProUGUI _economyChangeTextMesh;
+    public TextMeshProUGUI _environmentChangeTextMesh;
     private Transform _textRotator;
     
     private Quaternion textStartRot;
@@ -46,7 +48,24 @@ public class Tile : MonoBehaviour, IClickable, IMouseOverable
         get => _economicValue;
         set
         {
-            _economicValue = value;
+            var change = value - _environmentalValue;
+            _environmentalValue = value;
+
+            if (change != 0)
+            {
+                _economyChangeTextMesh.text = $"{change:+#;-#;0}";
+
+                var transform = _economyChangeTextMesh.GetComponent<RectTransform>();
+                StartCoroutine(Animation.Tween(3f,
+                    (t) => { transform.localPosition = Vector3.Lerp(new Vector3(0, -20, 0), new Vector3(0, -5, 0), t); },
+                    Animation.EaseOutCubic));
+
+                var gradient = GetGradientFromTone(GetColorFromPopupValue(change));
+                StartCoroutine(Animation.Tween(3f,
+                    (t) => { _economyChangeTextMesh.color = Color32.Lerp(gradient.opaque, gradient.transparent, t); },
+                    Animation.EaseOutCubic));
+            }
+
             _economyTextMesh.text = "";
             if (value != 0 && isEnabled) _economyTextMesh.text += value;
         }
@@ -58,7 +77,24 @@ public class Tile : MonoBehaviour, IClickable, IMouseOverable
         get => _environmentalValue;
         set
         {
+            var change = value - _environmentalValue;
             _environmentalValue = value;
+
+            if (change != 0)
+            {
+                _environmentChangeTextMesh.text = $"{change:+#;-#;0}";
+
+                var transform = _environmentChangeTextMesh.GetComponent<RectTransform>();
+                StartCoroutine(Animation.Tween(3f,
+                    (t) => { transform.localPosition = Vector3.Lerp(new Vector3(0, 0, 0), new Vector3(0, 15, 0), t); },
+                    Animation.EaseOutCubic));
+
+                var gradient = GetGradientFromTone(GetColorFromPopupValue(change));
+                StartCoroutine(Animation.Tween(3f,
+                    (t) => { _environmentChangeTextMesh.color = Color32.Lerp(gradient.opaque, gradient.transparent, t); },
+                    Animation.EaseOutCubic));
+            }
+
             _environmentTextMesh.text = "";
             if (value != 0 && isEnabled) _environmentTextMesh.text += value;
         }
@@ -116,6 +152,11 @@ public class Tile : MonoBehaviour, IClickable, IMouseOverable
         }
         textRotaterRoutine = null;
     }
+
+    private Color32 GetColorFromPopupValue(int value)
+        => value >= 0 ? new Color32(0, 212, 53, 255) : new Color32(212, 0, 10, 255);
+    private (Color32 opaque, Color32 transparent) GetGradientFromTone(Color32 tone)
+        => (opaque: new Color32(tone.r, tone.g, tone.b, 255), transparent: new Color32(tone.r, tone.g, tone.b, 0));
 
     public void OnClickUp()
     {
