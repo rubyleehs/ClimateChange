@@ -96,6 +96,7 @@ public class EffectsSpreader
                     {
                         for (int dx = -spread.Radius; dx <= spread.Radius; dx++)
                         {
+                            Debug.Log(dx + " | " + dy);
                             if (spread.Type == EffectSpreadType.Donut && dx == 0 && dy == 0) continue;
                             ApplyEffectSpreadHelper(tile.Position + new Vector2Int(dx,dy), Vector2Int.zero, (Tile a) => pointApplierFunc(a, spread.EconomicImpact, spread.EnvironmentalImpact), 0, true);
                         }
