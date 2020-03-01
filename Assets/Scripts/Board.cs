@@ -23,47 +23,47 @@ public class Board : MonoBehaviour
 
     public Transform projectorRig;
 
-    private Tile[, ] _tileMap;
-    private int[, ] _heightMap;
+    private Tile[,] _tileMap;
+    private int[,] _heightMap;
 
-    private List < (CardEffect cardEffect, Card card, Tile tile) > _cardEffects;
+    private List<(CardEffect cardEffect, Card card, Tile tile)> _cardEffects;
 
-    private void Awake ()
+    private void Awake()
     {
-        Init ();
+        Init();
     }
 
-    public void Init ()
+    public void Init()
     {
-        _cardEffects = new List < (CardEffect cardEffect, Card card, Tile tile) > ();
+        _cardEffects = new List <(CardEffect cardEffect, Card card, Tile tile)>();
 
-        CleanUpMap ();
-        CreateMap (MapResolution, Origin, groundPrefab : DefaultGroundPrefab, TileSize);
+        CleanUpMap();
+        CreateMap(MapResolution, Origin, groundPrefab : DefaultGroundPrefab, TileSize);
     }
 
-    public void AddCardEffect (CardEffect cardEffect, Card card, Tile tile) => _cardEffects.Add ((cardEffect, card, tile));
-    public void RemoveCardEffect (CardEffect cardEffect)
+    public void AddCardEffect(CardEffect cardEffect, Card card, Tile tile) => _cardEffects.Add ((cardEffect, card, tile));
+    public void RemoveCardEffect(CardEffect cardEffect)
     {
         var entry = _cardEffects.Where (e => e.cardEffect == cardEffect).First ();
         _cardEffects.Remove (entry);
     }
-    public void RaiseTurnStartEvents ()
+    public void RaiseTurnStartEvents()
     {
         foreach (var (cardEffect, card, tile) in _cardEffects)
             cardEffect.OnTurnStart (tile, card.Type);
     }
-    public void RaiseTurnEndEvents ()
+    public void RaiseTurnEndEvents()
     {
         foreach (var (cardEffect, card, tile) in _cardEffects)
             cardEffect.OnTurnEnd (tile, card.Type);
     }
-    public void RaiseDestructionEvents ()
+    public void RaiseDestructionEvents()
     {
         foreach (var (cardEffect, card, tile) in _cardEffects)
             cardEffect.OnDestruction (tile, card.Type);
     }
 
-    public void CreateMap (Vector2Int mapResolution, Vector3 origin, GameObject groundPrefab, Vector2 tileSize)
+    public void CreateMap(Vector2Int mapResolution, Vector3 origin, GameObject groundPrefab, Vector2 tileSize)
     {
         int w = mapResolution.x - 1, h = mapResolution.y - 1;
 
@@ -84,15 +84,14 @@ public class Board : MonoBehaviour
                 var curr = _heightMap[x, y];
 
                 var ledge_TL = x > 0 && y > 0 ? (curr - _heightMap[x - 1, y - 1]) : 0;
-                var ledge_TC = y > 0 ? (curr - _heightMap[x, y - 1]) : 0;
+                var ledge_TC =          y > 0 ? (curr - _heightMap[x, y - 1])     : 0;
                 var ledge_TR = x < w && y > 0 ? (curr - _heightMap[x + 1, y - 1]) : 0;
-                var ledge_CL = x > 0 ? (curr - _heightMap[x - 1, y]) : 0;
-                var ledge_CR = x < w ? (curr - _heightMap[x + 1, y]) : 0;
+                var ledge_CL = x > 0          ? (curr - _heightMap[x - 1, y])     : 0;
+                var ledge_CR = x < w          ? (curr - _heightMap[x + 1, y])     : 0;
                 var ledge_BL = x > 0 && y < h ? (curr - _heightMap[x - 1, y + 1]) : 0;
-                var ledge_BC = y < h ? (curr - _heightMap[x, y + 1]) : 0;
+                var ledge_BC =          y < h ? (curr - _heightMap[x, y + 1])     : 0;
                 var ledge_BR = x < w && y < h ? (curr - _heightMap[x + 1, y + 1]) : 0;
 
-                // Is ledge
                 if (ledge_TL < 0 || ledge_TC < 0 || ledge_TR < 0 ||
                     ledge_CL < 0 || ledge_CR < 0 ||
                     ledge_BL < 0 || ledge_BC < 0 || ledge_BR < 0)
@@ -221,7 +220,7 @@ public class Board : MonoBehaviour
         }
     }
 
-    public void CleanUpMap ()
+    public void CleanUpMap()
     {
         if (_tileMap == null) return;
         for (int y = 0; y < _tileMap.GetLength (1); y++)
@@ -233,7 +232,7 @@ public class Board : MonoBehaviour
         }
     }
 
-    public void UpdateAllTextRotation (float textRotationSpeed)
+    public void UpdateAllTextRotation(float textRotationSpeed)
     {
         for (int y = 0; y < _tileMap.GetLength (1); y++)
         {
@@ -244,18 +243,18 @@ public class Board : MonoBehaviour
         }
     }
 
-    public Tile GetTile (Vector2Int index)
+    public Tile GetTile(Vector2Int index)
     {
         return GetTile (index.x, index.y);
     }
 
-    public Tile GetTile (int x, int y)
+    public Tile GetTile(int x, int y)
     {
         if (x < 0 || y < 0 || x >= _tileMap.GetLength (0) || y >= _tileMap.GetLength (1)) return null;
         return _tileMap[x, y];
     }
 
-    public void HighlightTile (Tile tile)
+    public void HighlightTile(Tile tile)
     {
         if (tile == null) projectorRig.gameObject.SetActive (false);
         else

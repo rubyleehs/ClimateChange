@@ -62,7 +62,7 @@ MonoBehaviour:
   CliffCornerTopPrefab: {fileID: -927199367670048503, guid: 29830d39f29d8a4498f7556c0637f2e2,
     type: 3}
   TileParent: {fileID: 66419103489126680}
-  MapResolution: {x: 30, y: 30}
+  MapResolution: {x: 50, y: 50}
   Origin: {x: 0, y: 0, z: 0}
   TileSize: {x: 10, y: 10}
   projectorRig: {fileID: 1088664630109417194}
