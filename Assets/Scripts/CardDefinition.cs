@@ -3,14 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+public enum EffectSpreadType { N = 0, NE = 1, E = 2, SE = 3, S= 4, SW = 5, W= 6, NW= 7,  Horizontal = 8, Vertical = 9, Cardinal = 10, Diagonal = 11, Self = 12, All = 13, Donut = 14 }
+
+[System.Serializable]
+public struct EffectSpread{
+    public EffectSpreadType type;
+    public int radius;
+    public int economicalImpact;
+    public int environmentalImpact;
+}
+
 [CreateAssetMenu(menuName = "Cards/New Card", fileName = "Card")]
 public class CardDefinition : ScriptableObject
 {
     public Sprite Sprite;
 
     public int Cost;
-    public int EnvironmentalImpact;
-    public int EconomicImpact;
+    public List<EffectSpread> effectSpread;
 
     public GameObject GroundModel;
     public GameObject PlacedModel;

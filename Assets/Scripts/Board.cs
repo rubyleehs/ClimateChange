@@ -70,4 +70,10 @@ public class Board : MonoBehaviour
             }
         }
     }
+
+    public static Tile GetTile(int x, int y)
+    {
+        if (x < 0 || y < 0 || x >= map.GetLength(0) || y >= map.GetLength(1)) return null;
+        return map[x, y];
+    }
 }

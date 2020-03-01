@@ -10,24 +10,35 @@ public class Tile : MonoBehaviour
 {
     public Transform ModelParent;
 
-    private Vector2Int _indexPosition;
-    private Tile[] _neighbours;
+    public Vector2Int _indexPosition;
+    public Tile[] _neighbours;
 
     private Transform _groundModel;
+    private Transform _placedModel;
     private TextMeshProUGUI _textMesh;
 
     private Quaternion textStartRot;
     private IEnumerator textRotaterRoutine;
 
-
-
-    private int _landValue;
-    public int LandValue
+    private int _economicalValue;
+    public int EconomicalValue
     {
-        get => _landValue;
+        get => _economicalValue;
         set
         {
-            _landValue = value;
+            _economicalValue = value;
+            _textMesh.text = "";
+            if (value != 0) _textMesh.text += value;
+        }
+    }
+
+    private int _environmentalValue;
+    public int EnvironmentalValue
+    {
+        get => _environmentalValue;
+        set
+        {
+            _environmentalValue = value;
             _textMesh.text = "";
             if (value != 0) _textMesh.text += value;
         }
@@ -50,13 +61,20 @@ public class Tile : MonoBehaviour
         tile._neighbours[((int)direction + 4) % 8] = this;
     }
 
-    public void UpdateGroundModel(GameObject ground)
+    public void UpdateGroundModel(GameObject model)
     {
-        if (ground == null)
-            throw new ArgumentException("A valid ground model has to be passed in.");
+        if (model == null) return;
 
         if (_groundModel != null) Destroy(_groundModel.gameObject);
-        _groundModel = Instantiate(ground, ModelParent.position, Quaternion.identity, ModelParent).transform;
+        _groundModel = Instantiate(model, ModelParent.position, Quaternion.identity, ModelParent).transform;
+    }
+
+    public void UpdatePlacedModel(GameObject model)
+    {
+        if (model == null) return;
+
+        if (_placedModel != null) Destroy(_placedModel.gameObject);
+        _placedModel = Instantiate(model, ModelParent.position, Quaternion.identity, ModelParent).transform;
     }
 
     public void RotateTextToFaceCamera(float rotationSpeed)

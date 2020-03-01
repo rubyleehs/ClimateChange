@@ -5,6 +5,7 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public GameObject BoardPrefab;
+    public TextMeshProUGUI I_moneyTextMesh, I_economyTextMesh, I_environmentInpactTextMesh;
 
     private GameObject _root;
     private GameObject _boardObject;
@@ -15,8 +16,41 @@ public class GameManager : MonoBehaviour
 
     private CardLibrary _cardLibrary;
 
-    public static int money, economy, environmentImpact;
-    public TextMeshProUGUI moneyTextMesh, economyTextMesh, environmentInpactTextMesh;
+    private static int money, economicalPoints, environmentalPoints;
+    public static TextMeshProUGUI moneyTextMesh, economyTextMesh, environmentTextMesh;
+
+    public static int Money
+    {
+        get => money;
+        set
+        {
+            money = value;
+            moneyTextMesh.text = "";
+            if (value != 0) moneyTextMesh.text += value;
+        }
+    }
+
+    public static int EconomicalPoints
+    {
+        get => economicalPoints;
+        set
+        {
+            economicalPoints = value;
+            economyTextMesh.text = "";
+            if (value != 0) economyTextMesh.text += value;
+        }
+    }
+
+    public static int EnvironmentalPoints
+    {
+        get => environmentalPoints;
+        set
+        {
+            environmentalPoints = value;
+            environmentTextMesh.text = "";
+            if (value != 0) environmentTextMesh.text += value;
+        }
+    }
 
     void Awake()
     {
@@ -40,26 +74,12 @@ public class GameManager : MonoBehaviour
             card.transform.localRotation = Quaternion.identity;
         }
 
-        SetMoney(100);
-        SetEconomy(101);
-        SetEnvironmentImpact(102);
-    }
+        moneyTextMesh = I_moneyTextMesh;
+        economyTextMesh = I_economyTextMesh;
+        environmentTextMesh = I_environmentInpactTextMesh;
 
-    public void SetMoney(int value)
-    {
-        money = value;
-        moneyTextMesh.text = "" + value;
-    }
-
-    public void SetEconomy(int value)
-    {
-        economy = value;
-        economyTextMesh.text = "" + value;
-    }
-
-    public void SetEnvironmentImpact(int value)
-    {
-        environmentImpact = value;
-        environmentInpactTextMesh.text = "" + value;
+        Money = 100;
+        EconomicalPoints = 101;
+        EnvironmentalPoints = 102;
     }
 }

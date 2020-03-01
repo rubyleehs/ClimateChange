@@ -1,9 +1,7 @@
-using UnityEngine;
-
 public abstract class CardEffect
 {
-    public virtual void OnPlay(Tile tile) { }
-    public virtual void OnTurnStart() { }
-    public virtual void OnTurnEnd() { }
-    public virtual void OnDestruction() { }
+    public virtual void OnPlay(Tile tile, CardDefinition definition) { }
+    public virtual void OnTurnStart(CardDefinition definition) { }
+    public virtual void OnTurnEnd(CardDefinition definition) { }
+    public virtual void OnDestruction(CardDefinition definition) { }
 }
