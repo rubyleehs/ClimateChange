@@ -1,9 +1,11 @@
-﻿using System.Linq;
+using System.Linq;
 using UnityEngine;
 using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance { get; private set; }
+
     public GameObject BoardPrefab;
     public TextMeshProUGUI I_moneyTextMesh, I_economyTextMesh, I_environmentInpactTextMesh;
 
@@ -11,42 +13,47 @@ public class GameManager : MonoBehaviour
     private GameObject _boardObject;
     private GameObject _handObject;
 
-    private Board _board;
-    private Hand _hand;
+    public Board Board { get; private set; }
+    public Deck Deck { get; private set; }
+    public Hand Hand { get; private set; }
+    public CardLibrary CardLibrary { get; private set; }
 
     private CardLibrary _cardLibrary;
 
     private static int money, economicalPoints, environmentalPoints;
     public static TextMeshProUGUI moneyTextMesh, economyTextMesh, environmentTextMesh;
 
+    private static int _money;
     public static int Money
     {
-        get => money;
+        get => _money;
         set
         {
-            money = value;
+            _money = value;
             moneyTextMesh.text = "";
             if (value != 0) moneyTextMesh.text += value;
         }
     }
 
-    public static int EconomicalPoints
+    private static int _economicPoints;
+    public static int EconomicPoints
     {
-        get => economicalPoints;
+        get => _economicPoints;
         set
         {
-            economicalPoints = value;
+            _economicPoints = value;
             economyTextMesh.text = "";
             if (value != 0) economyTextMesh.text += value;
         }
     }
 
+    private static int _environmentalPoints;
     public static int EnvironmentalPoints
     {
-        get => environmentalPoints;
+        get => _environmentalPoints;
         set
         {
-            environmentalPoints = value;
+            _environmentalPoints = value;
             environmentTextMesh.text = "";
             if (value != 0) environmentTextMesh.text += value;
         }
@@ -54,32 +61,30 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        if (Instance != null && Instance != this)
+            Destroy(gameObject);
+        Instance = this;
+
         _root = gameObject;
 
-        _cardLibrary = new CardLibrary("Cards");
+        CardLibrary = new CardLibrary("Cards");
 
         _boardObject = Instantiate(BoardPrefab, _root.transform);
-        _board = _boardObject.GetComponent<Board>();
+        Board = _boardObject.GetComponent<Board>();
 
         _handObject = new GameObject("Hand");
         _handObject.transform.SetParent(_root.transform);
-        _hand = _handObject.AddComponent<Hand>();
-        _hand.Init(Camera.main);
-        _hand.transform.SetPositionAndRotation(new Vector3(0, 17.5f, 0), Quaternion.Euler(45, 45, 0));
-        _hand.transform.localScale = new Vector2(2.5f, 2.5f);
-        foreach (var cardType in _cardLibrary.Cards)
-        {
-            var card = _hand.GiveFrom(cardType);
-            card.transform.localPosition = Vector3.zero;
-            card.transform.localRotation = Quaternion.identity;
-        }
+        Hand = _handObject.AddComponent<Hand>();
+        Hand.Init(Camera.main);
+        Hand.transform.SetPositionAndRotation(new Vector3(0, 20f, 0), Quaternion.Euler(45, 45, 0));
+        Hand.transform.localScale = new Vector2(2.5f, 2.5f);
 
         moneyTextMesh = I_moneyTextMesh;
         economyTextMesh = I_economyTextMesh;
         environmentTextMesh = I_environmentInpactTextMesh;
 
         Money = 100;
-        EconomicalPoints = 101;
+        EconomicPoints = 101;
         EnvironmentalPoints = 102;
     }
 }

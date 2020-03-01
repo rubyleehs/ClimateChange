@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,8 +23,6 @@ public class MainCameraControl : MonoBehaviour
     {
         MoveCameraRig(new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")));
         
-
-
         if (Input.GetKeyDown(KeyCode.E)) RotateCamRigRight();
         if (Input.GetKeyDown(KeyCode.Q)) RotateCamRigLeft();
     }
@@ -57,7 +55,7 @@ public class MainCameraControl : MonoBehaviour
         camFaceDirection = direction;
         targetRot = startRot * Quaternion.Euler(Vector3.up * 45 * (int)direction);
         SmoothRotateCameraRigToTarget();
-        Board.UpdateAllTextRotation(camMoveSpeed);
+        GameManager.Instance.Board.UpdateAllTextRotation(camMoveSpeed);
     }
 
     public void RotateCamRigRight()

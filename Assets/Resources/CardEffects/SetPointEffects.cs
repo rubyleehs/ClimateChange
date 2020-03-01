@@ -16,7 +16,7 @@ public class SetPoints : CardEffect
     public static void SetPoint(Tile tile, int economicalPoint, int environmentalPoint)
     {
         if (tile == null) return;
-        tile.EconomicalValue = economicalPoint;
+        tile.EconomicValue = economicalPoint;
         tile.EnvironmentalValue = environmentalPoint;
     }  
 }
@@ -35,7 +35,7 @@ public class ChangePoints : CardEffect
     public static void ChangePoint(Tile tile, int economicalPoint, int environmentalPoint)
     {
         if (tile == null) return;
-        tile.EconomicalValue += economicalPoint;
+        tile.EconomicValue += economicalPoint;
         tile.EnvironmentalValue += environmentalPoint;
     }
 }
@@ -54,7 +54,7 @@ public class MultiplyPoints : CardEffect
     public static void MultiplyPoint(Tile tile, int economicalPoint, int environmentalPoint)
     {
         if (tile == null) return;
-        tile.EconomicalValue *= economicalPoint;
+        tile.EconomicValue *= economicalPoint;
         tile.EnvironmentalValue *= environmentalPoint;
     }
 }
@@ -64,39 +64,39 @@ public class EffectsSpreader
     public static void ApplyEffectSpread(Tile tile, EffectSpread spread, Action<Tile, int,int> pointApplierFunc)
     { 
         //if spread in one direction only
-        if ((int)spread.type < 8) ApplyEffectSpreadHelper(tile._neighbours[(int)spread.type], spread, pointApplierFunc, (Direction)spread.type, spread.radius - 1);
+        if ((int)spread.Type < 8) ApplyEffectSpreadHelper(tile._neighbours[(int)spread.Type], spread, pointApplierFunc, (Direction)spread.Type, spread.Radius - 1);
         else
         {
-            if (spread.type == EffectSpreadType.Horizontal || spread.type == EffectSpreadType.Cardinal)
+            if (spread.Type == EffectSpreadType.Horizontal || spread.Type == EffectSpreadType.Cardinal)
             {
-                ApplyEffectSpreadHelper(tile._neighbours[(int)Direction.E], spread, pointApplierFunc, Direction.E, spread.radius - 1);
-                ApplyEffectSpreadHelper(tile._neighbours[(int)Direction.W], spread, pointApplierFunc, Direction.W, spread.radius - 1);
+                ApplyEffectSpreadHelper(tile._neighbours[(int)Direction.E], spread, pointApplierFunc, Direction.E, spread.Radius - 1);
+                ApplyEffectSpreadHelper(tile._neighbours[(int)Direction.W], spread, pointApplierFunc, Direction.W, spread.Radius - 1);
             }
 
-            if (spread.type == EffectSpreadType.Vertical || spread.type == EffectSpreadType.Cardinal)
+            if (spread.Type == EffectSpreadType.Vertical || spread.Type == EffectSpreadType.Cardinal)
             {
-                ApplyEffectSpreadHelper(tile._neighbours[(int)Direction.N], spread, pointApplierFunc, Direction.N, spread.radius - 1);
-                ApplyEffectSpreadHelper(tile._neighbours[(int)Direction.S], spread, pointApplierFunc, Direction.S, spread.radius - 1);
+                ApplyEffectSpreadHelper(tile._neighbours[(int)Direction.N], spread, pointApplierFunc, Direction.N, spread.Radius - 1);
+                ApplyEffectSpreadHelper(tile._neighbours[(int)Direction.S], spread, pointApplierFunc, Direction.S, spread.Radius - 1);
             }
 
-            switch (spread.type)
+            switch (spread.Type)
             {
                 case EffectSpreadType.Self:
-                    pointApplierFunc(tile, spread.economicalImpact, spread.environmentalImpact);
+                    pointApplierFunc(tile, spread.EconomicImpact, spread.EnvironmentalImpact);
                     break;
                 case EffectSpreadType.Diagonal:
-                    ApplyEffectSpreadHelper(tile._neighbours[(int)Direction.NE], spread, pointApplierFunc, Direction.NE, spread.radius - 1);
-                    ApplyEffectSpreadHelper(tile._neighbours[(int)Direction.NW], spread, pointApplierFunc, Direction.NW, spread.radius - 1);
-                    ApplyEffectSpreadHelper(tile._neighbours[(int)Direction.SE], spread, pointApplierFunc, Direction.SE, spread.radius - 1);
-                    ApplyEffectSpreadHelper(tile._neighbours[(int)Direction.SW], spread, pointApplierFunc, Direction.SW, spread.radius - 1);
+                    ApplyEffectSpreadHelper(tile._neighbours[(int)Direction.NE], spread, pointApplierFunc, Direction.NE, spread.Radius - 1);
+                    ApplyEffectSpreadHelper(tile._neighbours[(int)Direction.NW], spread, pointApplierFunc, Direction.NW, spread.Radius - 1);
+                    ApplyEffectSpreadHelper(tile._neighbours[(int)Direction.SE], spread, pointApplierFunc, Direction.SE, spread.Radius - 1);
+                    ApplyEffectSpreadHelper(tile._neighbours[(int)Direction.SW], spread, pointApplierFunc, Direction.SW, spread.Radius - 1);
                     break;
                 case EffectSpreadType.All | EffectSpreadType.Donut:
-                    for (int dy = -spread.radius; dy <= spread.radius; dy++)
+                    for (int dy = -spread.Radius; dy <= spread.Radius; dy++)
                     {
-                        for (int dx = -spread.radius; dx <= spread.radius; dy++)
+                        for (int dx = -spread.Radius; dx <= spread.Radius; dy++)
                         {
-                            if (spread.type == EffectSpreadType.Donut && dx == 0 && dy == 0) continue;
-                            pointApplierFunc(Board.GetTile(tile._indexPosition.x + dx, tile._indexPosition.y + dy), spread.economicalImpact, spread.environmentalImpact);
+                            if (spread.Type == EffectSpreadType.Donut && dx == 0 && dy == 0) continue;
+                            pointApplierFunc(GameManager.Instance.Board.GetTile(tile.Position.x + dx, tile.Position.y + dy), spread.EconomicImpact, spread.EnvironmentalImpact);
                         }
                     }
                     break;
@@ -125,7 +125,7 @@ public class EffectsSpreader
 
     public static void ApplyEffectSpreadHelper(Tile tile, EffectSpread spread, Action<Tile, int, int> pointApplierFunc, Direction? direction = null, int distance = 0)
     {
-        ApplyEffectSpreadHelper(tile, direction.Value, (Tile b) => pointApplierFunc(b, spread.economicalImpact, spread.environmentalImpact), distance);
+        ApplyEffectSpreadHelper(tile, direction.Value, (Tile b) => pointApplierFunc(b, spread.EconomicImpact, spread.EnvironmentalImpact), distance);
     }
 }
 

@@ -8,7 +8,7 @@ public class AcceptAllPoints : CardEffect
     public override void OnPlay(Tile tile, CardDefinition definition)
     {
         base.OnPlay(tile, definition);
-        GameManager.EconomicalPoints += tile.EconomicalValue;
+        GameManager.EconomicPoints += tile.EconomicValue;
         GameManager.EnvironmentalPoints += tile.EnvironmentalValue;
     }
 }
@@ -18,7 +18,7 @@ public class AcceptEconomicalPoints : CardEffect
     public override void OnPlay(Tile tile, CardDefinition definition)
     {
         base.OnPlay(tile, definition);
-        GameManager.EconomicalPoints += tile.EconomicalValue;
+        GameManager.EconomicPoints += tile.EconomicValue;
     }
 }
 

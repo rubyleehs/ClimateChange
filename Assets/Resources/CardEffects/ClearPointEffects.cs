@@ -7,7 +7,7 @@ public class ClearAllPoints : CardEffect
     public override void OnPlay(Tile tile, CardDefinition definition)
     {
         base.OnPlay(tile, definition);
-        GameManager.EconomicalPoints = 0;
+        GameManager.EconomicPoints = 0;
         GameManager.EnvironmentalPoints = 0;
     }
 }
@@ -17,7 +17,7 @@ public class ClearEconomicalPoints : CardEffect
     public override void OnPlay(Tile tile, CardDefinition definition)
     {
         base.OnPlay(tile, definition);
-        GameManager.EconomicalPoints = 0;
+        GameManager.EconomicPoints = 0;
     }
 }
 
