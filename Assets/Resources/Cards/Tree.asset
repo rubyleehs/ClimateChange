@@ -15,7 +15,7 @@ MonoBehaviour:
   Sprite: {fileID: -5167807243808128219, guid: 77830b4bda968874d94061d138e4a8b3, type: 3}
   Cost: 0
   effectSpread:
-  - Type: 14
+  - Type: 13
     Radius: 3
     EconomicImpact: 5
     EnvironmentalImpact: 2
@@ -25,4 +25,4 @@ MonoBehaviour:
     type: 3}
   EffectNames:
   - AcceptAllPoints
-  - ClearAllPoints
+  - SetPoints
