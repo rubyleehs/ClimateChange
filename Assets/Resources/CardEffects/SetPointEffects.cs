@@ -90,13 +90,15 @@ public class EffectsSpreader
                     ApplyEffectSpreadHelper(tile, Direction.NE, (Tile a) => pointApplierFunc(a, spread.EconomicImpact, spread.EnvironmentalImpact), spread.Radius);
                     ApplyEffectSpreadHelper(tile, Direction.SE, (Tile a) => pointApplierFunc(a, spread.EconomicImpact, spread.EnvironmentalImpact), spread.Radius);
                     break;
-                case EffectSpreadType.All | EffectSpreadType.Donut:
+                case EffectSpreadType.All:
+                case EffectSpreadType.Donut:
                     for (int dy = -spread.Radius; dy <= spread.Radius; dy++)
                     {
-                        for (int dx = -spread.Radius; dx <= spread.Radius; dy++)
+                        for (int dx = -spread.Radius; dx <= spread.Radius; dx++)
                         {
+                            Debug.Log(dx + " | " + dy);
                             if (spread.Type == EffectSpreadType.Donut && dx == 0 && dy == 0) continue;
-                            pointApplierFunc(GameManager.Instance.Board.GetTile(tile.Position.x + dx, tile.Position.y + dy), spread.EconomicImpact, spread.EnvironmentalImpact);
+                            ApplyEffectSpreadHelper(tile.Position + new Vector2Int(dx,dy), Vector2Int.zero, (Tile a) => pointApplierFunc(a, spread.EconomicImpact, spread.EnvironmentalImpact), 0, true);
                         }
                     }
                     break;

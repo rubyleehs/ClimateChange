@@ -15,7 +15,7 @@ public static class DirectionHelper
         else if (dir > 4) delta += Vector2Int.left;
 
         if (dir > 2 && dir < 6) delta += Vector2Int.down;
-        else if (dir != 2 || dir != 6) delta += Vector2Int.up;
+        else if (dir < 2 || dir > 6) delta += Vector2Int.up;
 
         return delta;
     }
