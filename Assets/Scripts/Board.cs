@@ -21,8 +21,7 @@ public class Board : MonoBehaviour
     public Vector3 Origin;
     public Vector2 TileSize;
 
-    public Transform I_projectorRig;
-    public static Transform projectorRig;
+    public Transform projectorRig;
 
     private Tile[, ] _tileMap;
     private int[, ] _heightMap;
@@ -240,7 +239,7 @@ public class Board : MonoBehaviour
         {
             for (int x = 0; x < _tileMap.GetLength (0); x++)
             {
-                _tileMap[x, y].RotateTextToFaceCamera (textRotationSpeed);
+                if(_tileMap[x,y] != null) _tileMap[x, y].RotateTextToFaceCamera (textRotationSpeed);
             }
         }
     }
