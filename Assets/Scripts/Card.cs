@@ -68,6 +68,8 @@ public class Card : MonoBehaviour, IClickable
 			Animation.EaseInOutCubic));
 
 		var gameManager = GameManager.Instance;
+		if (Type.GroundModel != null) tile.UpdateGroundModel(Type.GroundModel);
+		if (Type.PlacedModel != null) tile.UpdatePlacedModel(Type.PlacedModel);
 		foreach (var effect in Type.Effects)
 		{
 			gameManager.Board.AddCardEffect(effect, this, tile);

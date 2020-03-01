@@ -49,8 +49,20 @@ MonoBehaviour:
     type: 3}
   DefaultGroundPrefab: {fileID: 7343213004860160786, guid: a921e209fa9341242a715c8168a9ec91,
     type: 3}
+  CliffStraightMidPrefab: {fileID: -927199367670048503, guid: 623d4097c7c59d049a16599338fef4cc,
+    type: 3}
+  CliffStraightTopPrefab: {fileID: -927199367670048503, guid: ec5ca7de9211dbf4eae4bb08b5e10bb6,
+    type: 3}
+  CliffCornerInnerMidPrefab: {fileID: -927199367670048503, guid: 56e31b5044b77c1428e82f2855199891,
+    type: 3}
+  CliffCornerInnerTopPrefab: {fileID: -927199367670048503, guid: fed5a6ffb2039c74898e44d2edf4e607,
+    type: 3}
+  CliffCornerMidPrefab: {fileID: -927199367670048503, guid: ddadadc662ae9c840ace69e6edb3f8f7,
+    type: 3}
+  CliffCornerTopPrefab: {fileID: -927199367670048503, guid: 29830d39f29d8a4498f7556c0637f2e2,
+    type: 3}
   TileParent: {fileID: 66419103489126680}
-  MapResolution: {x: 10, y: 10}
+  MapResolution: {x: 30, y: 30}
   Origin: {x: 0, y: 0, z: 0}
   TileSize: {x: 10, y: 10}
   projectorRig: {fileID: 1088664630109417194}

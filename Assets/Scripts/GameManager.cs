@@ -76,10 +76,11 @@ public class GameManager : MonoBehaviour
         Deck = new Deck(CardLibrary, 80);
 
         _handObject = new GameObject("Hand");
-        _handObject.transform.SetParent(_root.transform);
+        _handObject.transform.SetParent(Camera.main.transform);
         Hand = _handObject.AddComponent<Hand>();
         Hand.Init(Camera.main);
-        Hand.transform.SetPositionAndRotation(new Vector3(0, 20f, 0), Quaternion.Euler(45, 45, 0));
+        Hand.transform.localPosition = new Vector3(0, -40, 1);
+        Hand.transform.localRotation = Quaternion.identity;
         Hand.transform.localScale = new Vector2(2.5f, 2.5f);
 
         State = GameState.Start;
