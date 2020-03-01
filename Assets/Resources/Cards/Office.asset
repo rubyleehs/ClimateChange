@@ -10,17 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 017ca8dd7d06a1a41a0a0e9fd010bb36, type: 3}
-  m_Name: Tree
+  m_Name: Office
   m_EditorClassIdentifier: 
-  Sprite: {fileID: -5167807243808128219, guid: 77830b4bda968874d94061d138e4a8b3, type: 3}
-  Cost: 25
+  Sprite: {fileID: 5488780184344539417, guid: 77830b4bda968874d94061d138e4a8b3, type: 3}
+  Cost: 100
   effectSpread:
   - Type: 13
+    Radius: 2
+    EconomicImpact: 2
+    EnvironmentalImpact: 0
+  - Type: 13
     Radius: 1
+    EconomicImpact: 3
+    EnvironmentalImpact: -5
+  - Type: 11
+    Radius: 2
     EconomicImpact: 1
-    EnvironmentalImpact: 1
+    EnvironmentalImpact: -1
+  - Type: 12
+    Radius: 1
+    EconomicImpact: 0
+    EnvironmentalImpact: 4
   GroundModel: {fileID: 0}
-  PlacedModel: {fileID: -927199367670048503, guid: 95a1e1772bca2bd47950b4e48761b1f6,
+  PlacedModel: {fileID: 2615593181803039365, guid: 2ddde9c08ed6ad34e8870289d9de8b13,
     type: 3}
   EffectNames:
   - ChangePoints
+  - AcceptAllPoints

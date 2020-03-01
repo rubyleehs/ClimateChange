@@ -89,9 +89,9 @@ public class GameManager : MonoBehaviour
         economyTextMesh = I_economyTextMesh;
         environmentTextMesh = I_environmentInpactTextMesh;
 
-        Money = 100;
-        EconomicPoints = 101;
-        EnvironmentalPoints = 102;
+        Money = 2500;
+        EconomicPoints = 0;
+        EnvironmentalPoints = 0;
     }
     
     void Update()

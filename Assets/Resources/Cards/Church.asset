@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 017ca8dd7d06a1a41a0a0e9fd010bb36, type: 3}
+  m_Name: Church
+  m_EditorClassIdentifier: 
+  Sprite: {fileID: 6301238216690363317, guid: 77830b4bda968874d94061d138e4a8b3, type: 3}
+  Cost: 0
+  effectSpread:
+  - Type: 14
+    Radius: 1
+    EconomicImpact: -2
+    EnvironmentalImpact: -2
+  - Type: 9
+    Radius: 1
+    EconomicImpact: 3
+    EnvironmentalImpact: 0
+  - Type: 8
+    Radius: 1
+    EconomicImpact: 0
+    EnvironmentalImpact: 3
+  - Type: 12
+    Radius: 1
+    EconomicImpact: 2
+    EnvironmentalImpact: 2
+  GroundModel: {fileID: 0}
+  PlacedModel: {fileID: 3648366558759631623, guid: 7814de1ac1c55ab48a414943287c95eb,
+    type: 3}
+  EffectNames:
+  - AcceptAllPoints
+  - SetPoints
+  - AcceptAllPoints

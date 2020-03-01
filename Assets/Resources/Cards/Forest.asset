@@ -10,17 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 017ca8dd7d06a1a41a0a0e9fd010bb36, type: 3}
-  m_Name: Tree
+  m_Name: Forest
   m_EditorClassIdentifier: 
-  Sprite: {fileID: -5167807243808128219, guid: 77830b4bda968874d94061d138e4a8b3, type: 3}
-  Cost: 25
+  Sprite: {fileID: 3937048335420172050, guid: 77830b4bda968874d94061d138e4a8b3, type: 3}
+  Cost: 45
   effectSpread:
-  - Type: 13
+  - Type: 14
     Radius: 1
-    EconomicImpact: 1
+    EconomicImpact: 0
+    EnvironmentalImpact: 1
+  - Type: 10
+    Radius: 1
+    EconomicImpact: 0
     EnvironmentalImpact: 1
   GroundModel: {fileID: 0}
-  PlacedModel: {fileID: -927199367670048503, guid: 95a1e1772bca2bd47950b4e48761b1f6,
+  PlacedModel: {fileID: 8894074152631337528, guid: 0810042eb7279d54fa074ecbac814e91,
     type: 3}
   EffectNames:
   - ChangePoints
+  - AcceptEnvironmentalPoints

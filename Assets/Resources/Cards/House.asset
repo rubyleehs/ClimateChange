@@ -10,17 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 017ca8dd7d06a1a41a0a0e9fd010bb36, type: 3}
-  m_Name: Tree
+  m_Name: House
   m_EditorClassIdentifier: 
-  Sprite: {fileID: -5167807243808128219, guid: 77830b4bda968874d94061d138e4a8b3, type: 3}
-  Cost: 25
+  Sprite: {fileID: -8924386549037017256, guid: 77830b4bda968874d94061d138e4a8b3, type: 3}
+  Cost: 35
   effectSpread:
   - Type: 13
     Radius: 1
-    EconomicImpact: 1
+    EconomicImpact: 0
+    EnvironmentalImpact: -2
+  - Type: 10
+    Radius: 1
+    EconomicImpact: -1
+    EnvironmentalImpact: -1
+  - Type: 9
+    Radius: 1
+    EconomicImpact: 3
     EnvironmentalImpact: 1
+  - Type: 12
+    Radius: 1
+    EconomicImpact: 1
+    EnvironmentalImpact: 2
   GroundModel: {fileID: 0}
-  PlacedModel: {fileID: -927199367670048503, guid: 95a1e1772bca2bd47950b4e48761b1f6,
+  PlacedModel: {fileID: 7850650342814927008, guid: 5a1441fffe301dd408d35fe9896d0a75,
     type: 3}
   EffectNames:
   - ChangePoints
+  - AcceptAlllPoints
