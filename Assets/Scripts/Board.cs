@@ -14,8 +14,7 @@ public class Board : MonoBehaviour
     public Vector3 Origin;
     public Vector2 TileSize;
 
-    public Transform I_projectorRig;
-    public static Transform projectorRig;
+    public Transform projectorRig;
 
     private Tile[,] _map;
 
@@ -28,7 +27,6 @@ public class Board : MonoBehaviour
 
     public void Init()
     {
-        projectorRig = I_projectorRig;
         _cardEffects = new List<(CardEffect cardEffect, Card card, Tile tile)>();
 
         CleanUpMap();
@@ -103,13 +101,18 @@ public class Board : MonoBehaviour
         }
     }
 
+    public Tile GetTile(Vector2Int index)
+    {
+        return GetTile(index.x, index.y);
+    }
+
     public Tile GetTile(int x, int y)
     {
         if (x < 0 || y < 0 || x >= _map.GetLength(0) || y >= _map.GetLength(1)) return null;
         return _map[x, y];
     }
 
-    public static void HighlightTile(Tile tile)
+    public void HighlightTile(Tile tile)
     {
         if (tile == null) projectorRig.gameObject.SetActive(false);
         else

@@ -4,7 +4,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public enum Direction { N = 0, NE = 1, E = 2, SE = 3, S = 4, SW = 5, W = 6, NW = 7 };
+public enum Direction { N = 0, NE = 1, E = 2, SE = 3, S = 4, SW = 5, W = 6, NW = 7};
+public static class DirectionHelper
+{
+    public static Vector2Int ConvertToVector2Int(Direction direction)
+    {
+        Vector2Int delta = Vector2Int.zero;
+        int dir = (int)direction;
+        if (dir > 0 && dir < 4) delta += Vector2Int.right;
+        else if (dir > 4) delta += Vector2Int.left;
+
+        if (dir > 2 && dir < 6) delta += Vector2Int.down;
+        else if (dir != 2 || dir != 6) delta += Vector2Int.up;
+
+        return delta;
+    }
+}
 
 public class Tile : MonoBehaviour, IClickable, IMouseOverable
 {
@@ -124,11 +139,11 @@ public class Tile : MonoBehaviour, IClickable, IMouseOverable
     void IMouseOverable.OnMouseOver()
     {
         if (!isEnabled) return;
-        Board.HighlightTile(this);
+        GameManager.Instance.Board.HighlightTile(this);
     }
 
     void IMouseOverable.OnMouseExit()
     {
-        Board.HighlightTile(null);   
+        GameManager.Instance.Board.HighlightTile(null);   
     }
 }
