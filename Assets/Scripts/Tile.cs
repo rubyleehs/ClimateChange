@@ -6,12 +6,13 @@ using TMPro;
 
 public enum Direction { N = 0, NE = 1, E = 2, SE = 3, S = 4, SW = 5, W = 6, NW = 7 };
 
-public class Tile : MonoBehaviour
+public class Tile : MonoBehaviour, IClickable
 {
     public Transform ModelParent;
 
-    public Vector2Int _indexPosition;
+    private Vector2Int _indexPosition;
     public Tile[] _neighbours;
+    public Vector2Int Position => new Vector2Int(_indexPosition.x, _indexPosition.y);
 
     private Transform _groundModel;
     private Transform _placedModel;
@@ -20,13 +21,13 @@ public class Tile : MonoBehaviour
     private Quaternion textStartRot;
     private IEnumerator textRotaterRoutine;
 
-    private int _economicalValue;
-    public int EconomicalValue
+    private int _economicValue;
+    public int EconomicValue
     {
-        get => _economicalValue;
+        get => _economicValue;
         set
         {
-            _economicalValue = value;
+            _economicValue = value;
             _textMesh.text = "";
             if (value != 0) _textMesh.text += value;
         }
@@ -96,4 +97,17 @@ public class Tile : MonoBehaviour
         }
         textRotaterRoutine = null;
     }
+
+    public void OnClickUp()
+    {
+        Debug.Log($"Tile at (x: {_indexPosition.x}, y: {_indexPosition.y}) selected.");
+
+        if (Card.IsAnyCardBeingDragged)
+        {
+            var card = Card.CurrentlyDraggedCard;
+            card.PlayOn(this);
+        }
+    }
+    public void OnClickDown() { }
+    public void OnClick() { }
 }

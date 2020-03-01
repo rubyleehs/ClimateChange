@@ -23,10 +23,9 @@ public class Hand : MonoBehaviour
 	public Card Give(Card card)
 	{
 		card.transform.SetParent(this.transform);
-		//card.transform.localPosition = Vector3.zero;
-		//card.transform.localRotation = Quaternion.identity;
-		card.transform.localScale = new Vector2(15, 15);
 		card.gameObject.layer = LayerMask.NameToLayer("UI");
+
+		card.PushToHand(this);
 		_cards.Add(card);
 		ArrangeCards();
 		return card;
@@ -56,16 +55,21 @@ public class Hand : MonoBehaviour
 		{
 			var card = _cards[i];
 			var offset = (i - ((_cards.Count - 1) / 2f));
+			var factor = 1 / (float)Math.Pow(_cards.Count, 1 / 2);
 
 			card.GetComponent<SpriteRenderer>().sortingOrder = i;
 
 			var fromPosition = card.transform.localPosition;
 			StartCoroutine(Animation.Tween(1f,
-				(t) => { card.transform.localPosition = Vector2.Lerp(fromPosition, new Vector2(offset * (10 / _cards.Count), 0), t); },
+				(t) => { card.transform.localPosition = Vector2.Lerp(fromPosition, new Vector2(offset * (3 * factor), (-Math.Abs(offset) + Math.Abs(offset) / 2) * (float)(0.5 * factor)), t); },
 				Animation.EaseInOutCubic));
 			var fromRotation = card.transform.localRotation;
 			StartCoroutine(Animation.Tween(1f,
-				(t) => { card.transform.localRotation = Quaternion.Lerp(fromRotation, Quaternion.Euler(0, 0, -offset * (25 / _cards.Count)), t); },
+				(t) => { card.transform.localRotation = Quaternion.Lerp(fromRotation, Quaternion.Euler(0, 0, -offset * (6 * factor)), t); },
+				Animation.EaseInOutCubic));
+			var fromScale = card.transform.localScale;
+			StartCoroutine(Animation.Tween(0.5f,
+				(t) => { card.transform.localScale = Vector2.Lerp(fromScale, new Vector2(15, 15), t); },
 				Animation.EaseInOutCubic));
 		}
 	}

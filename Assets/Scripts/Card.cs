@@ -11,12 +11,14 @@ public class Card : MonoBehaviour, IClickable
 	private SpriteRenderer _spriteRenderer;
 	private BoxCollider _boxCollider;
 
-	public static bool IsAnyCardBeingDragged { get; private set; }
-	public bool IsBeingDragged { get; private set; }
+	public static Card CurrentlyDraggedCard { get; private set; }
+	public static bool IsAnyCardBeingDragged => CurrentlyDraggedCard != null;
+	public bool IsBeingDragged => CurrentlyDraggedCard == this;
 
 	private Hand _handOnDragStart;
 	public Hand Hand { get; private set; }
 	public bool IsInHand => Hand != null;
+	public bool WasPlayed { get; private set; } = false;
 
 	public void Init(CardDefinition type, Hand hand = null)
 	{
@@ -34,28 +36,58 @@ public class Card : MonoBehaviour, IClickable
 		_boxCollider.size = new Vector2(0.4f, 0.58f);
 	}
 
-	public void Play()
+	public void PushToHand(Hand hand)
+	{
+		Hand = hand;
+	}
+	public void PopFromHand()
 	{
 		Hand?.Play(this);
 		_handOnDragStart = Hand;
 		Hand = null;
 	}
-	public void Release()
+	public void CancelDrag()
 	{
+		CurrentlyDraggedCard = null;
 		_handOnDragStart.Give(this);
 		Hand = _handOnDragStart;
+	}
+	public void PlayOn(Tile tile)
+	{
+		Debug.Log($"Card {Type} was played on tile at (x: {tile.Position.x}, y: {tile.Position.y}).");
+
+		WasPlayed = true;
+
+		CurrentlyDraggedCard = null;
+		_handOnDragStart = null;
+		Hand = null;
+
+		var fromScale = transform.localScale;
+		StartCoroutine(Animation.Tween(0.5f,
+			(t) => { transform.localScale = Vector2.Lerp(fromScale, new Vector2(0, 0), t); },
+			Animation.EaseInOutCubic));
+
+		var gameManager = GameManager.Instance;
+		foreach (var effect in Type.Effects)
+		{
+			gameManager.Board.AddCardEffect(effect, this, tile);
+			effect.OnPlay(tile, Type);
+		}
+		gameManager.EndTurn();
 	}
 
 	void IClickable.OnClickDown()
 	{
-		Debug.Log($"Dragging {Type}");
-
 		if (IsAnyCardBeingDragged && !IsBeingDragged) return;
 
-		IsBeingDragged = true;
-		IsAnyCardBeingDragged = true;
+		CurrentlyDraggedCard = this;
 
-		if (IsInHand) Play();
+		if (IsInHand) PopFromHand();
+
+		var fromScale = transform.localScale;
+		StartCoroutine(Animation.Tween(0.5f,
+			(t) => { transform.localScale = Vector2.Lerp(fromScale, new Vector2(8, 8), t); },
+			Animation.EaseInOutCubic));
 
 		StartCoroutine(OnDrag());
 	}
@@ -64,20 +96,13 @@ public class Card : MonoBehaviour, IClickable
 	{
 		while (!Input.GetMouseButtonUp(0))
 		{
-			transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			transform.position = Vector3.Lerp(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition) + new Vector3(8, -18, 0), 0.08f);
 			yield return null;
 		}
-	}
-	void IClickable.OnClickUp()
-	{
-		Debug.Log($"Mouse up");
 
-		if (IsBeingDragged)
-		{
-			IsBeingDragged = false;
-			IsAnyCardBeingDragged = false;
-		}
-
-		Release();
+		Debug.Log("Drag cancelled");
+		if (IsBeingDragged) CurrentlyDraggedCard = null;
+		if (!WasPlayed) CancelDrag();
 	}
+	void IClickable.OnClickUp() { }
 }
