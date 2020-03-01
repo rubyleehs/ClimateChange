@@ -1122,6 +1122,21 @@ PrefabInstance:
       propertyPath: environmentInpactTextMesh
       value: 
       objectReference: {fileID: 1346581364}
+    - target: {fileID: 2610870695097007264, guid: 70d61d14f8b6c694487c3b12dbb4cad8,
+        type: 3}
+      propertyPath: I_environmentInpactTextMesh
+      value: 
+      objectReference: {fileID: 1346581364}
+    - target: {fileID: 2610870695097007264, guid: 70d61d14f8b6c694487c3b12dbb4cad8,
+        type: 3}
+      propertyPath: I_economyTextMesh
+      value: 
+      objectReference: {fileID: 1831187835}
+    - target: {fileID: 2610870695097007264, guid: 70d61d14f8b6c694487c3b12dbb4cad8,
+        type: 3}
+      propertyPath: I_moneyTextMesh
+      value: 
+      objectReference: {fileID: 1863579648}
     - target: {fileID: 2610870695097007265, guid: 70d61d14f8b6c694487c3b12dbb4cad8,
         type: 3}
       propertyPath: m_Name

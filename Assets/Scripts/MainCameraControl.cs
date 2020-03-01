@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,7 +22,7 @@ public class MainCameraControl : MonoBehaviour
     private void Update()
     {
         MoveCameraRig(new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")));
-        
+
         if (Input.GetKeyDown(KeyCode.E)) RotateCamRigRight();
         if (Input.GetKeyDown(KeyCode.Q)) RotateCamRigLeft();
     }

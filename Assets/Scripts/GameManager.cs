@@ -1,6 +1,8 @@
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
 using TMPro;
+
+public enum GameState { Start, TurnStart, Turn, TurnEnd };
 
 public class GameManager : MonoBehaviour
 {
@@ -18,9 +20,8 @@ public class GameManager : MonoBehaviour
     public Hand Hand { get; private set; }
     public CardLibrary CardLibrary { get; private set; }
 
-    private CardLibrary _cardLibrary;
+    public GameState State { get; private set; }
 
-    private static int money, economicalPoints, environmentalPoints;
     public static TextMeshProUGUI moneyTextMesh, economyTextMesh, environmentTextMesh;
 
     private static int _money;
@@ -72,12 +73,16 @@ public class GameManager : MonoBehaviour
         _boardObject = Instantiate(BoardPrefab, _root.transform);
         Board = _boardObject.GetComponent<Board>();
 
+        Deck = new Deck(CardLibrary, 80);
+
         _handObject = new GameObject("Hand");
         _handObject.transform.SetParent(_root.transform);
         Hand = _handObject.AddComponent<Hand>();
         Hand.Init(Camera.main);
         Hand.transform.SetPositionAndRotation(new Vector3(0, 20f, 0), Quaternion.Euler(45, 45, 0));
         Hand.transform.localScale = new Vector2(2.5f, 2.5f);
+
+        State = GameState.Start;
 
         moneyTextMesh = I_moneyTextMesh;
         economyTextMesh = I_economyTextMesh;
@@ -86,5 +91,38 @@ public class GameManager : MonoBehaviour
         Money = 100;
         EconomicPoints = 101;
         EnvironmentalPoints = 102;
+    }
+    
+    void Update()
+    {
+        switch (State)
+        {
+            case GameState.Start:
+                Debug.Log("GAMESTATE: START");
+                foreach (var i in Enumerable.Range(1, 6))
+                    Deck.Give(Hand);
+                State = GameState.Turn;
+                break;
+            case GameState.TurnStart:
+                Debug.Log("GAMESTATE: TURNSTART");
+                Board.RaiseTurnStartEvents();
+                Deck.Give(Hand);
+                State = GameState.Turn;
+                break;
+            case GameState.Turn:
+                //Debug.Log("GAMESTATE: TURN");
+                break;
+            case GameState.TurnEnd:
+                Debug.Log("GAMESTATE: TURNEND");
+                Board.RaiseTurnEndEvents();
+                State = GameState.TurnStart;
+                break;
+        }
+    }
+
+    public void EndTurn()
+    {
+        if (State == GameState.Turn)
+            State = GameState.TurnEnd;
     }
 }
